@@ -2,16 +2,21 @@ package com.codeme.homework1;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Przegladak {
 		
 	public static int countWords(String searchedWord, String content) {
 		String[] splitted_text = splitTextIntoWords(content);
 		
+		Pattern p = Pattern.compile("\\w*" + searchedWord + "\\w*");
+				
 		int counter = 0;
 		searchedWord = searchedWord.toLowerCase();
 		for (String word : splitted_text) {
-			if (word.equals(searchedWord)) {
+			Matcher m = p.matcher(word);
+			if (m.matches()) {
 				counter += 1;
 			}
 		}
