@@ -5,17 +5,26 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class Przegladak {
-		
-	public static int countWords(String searchedWord, String content) {
+	
+	/**
+	 * Counts all occurrences of a word in the given text.
+	 * Finds specific words in a longer phrase (e.g. counts occurrence for 'win' in a word 'window').
+	 * @param searchedWord A word searched
+	 * @param content Provided text to be searched through
+	 * @return a number of word occurrences
+	 * @see splitTextIntoWords method from below
+	 */
+	public static int countSpecificWords(String searchedWord, String content) {
 		String[] splitted_text = splitTextIntoWords(content);
 		
-		Pattern p = Pattern.compile("\\w*" + searchedWord + "\\w*");
+		Pattern pattern = Pattern.compile("\\w*" + searchedWord + "\\w*");
 				
 		int counter = 0;
 		searchedWord = searchedWord.toLowerCase();
 		for (String word : splitted_text) {
-			Matcher m = p.matcher(word);
+			Matcher m = pattern.matcher(word);
 			if (m.matches()) {
 				counter += 1;
 			}
@@ -23,11 +32,22 @@ public class Przegladak {
 		return counter;
 	}
 	
+	/**
+	 * Counts all words that appear in a provided text. Does not include signs, commas.
+	 * @param content
+	 * @return Number of counted words
+	 */
 	public static int countAllWords(String content) {
 		String[] splitted_text = splitTextIntoWords(content);
 		return splitted_text.length;
 	}
 	
+	/**
+	 * Counts all words that appear in a provided text. It excludes conjunctions.
+	 * Additionally, it does not include signs, commas.
+	 * @param content
+	 * @return Number of counted words
+	 */
 	public static int countWordsNoConjunction(String content) {
 		String[] splitted_text = splitTextIntoWords(content);
 		String[] conjunction = {"a", "i", "oraz", "tudzież", "albo", "lub", "czy", "ani", "ni", "aczkolwiek",
@@ -46,6 +66,12 @@ public class Przegladak {
 		return counter;
 	}
 	
+	/**
+	 * It counts words that contain a specific ending.
+	 * @param ending
+	 * @param content
+	 * @return Number of counted words
+	 */
 	public static int countWordsWithSpecificEnding(String ending, String content) {
 		String[] splitted_text = splitTextIntoWords(content);
 		
@@ -59,10 +85,19 @@ public class Przegladak {
 		
 	}
 
+	/**
+	 * It splits, trims, and distinguishes words from a whole text.
+	 * @param text The source that needs to be split
+	 * @return An array of words taken from text
+	 */
 	public static String[] splitTextIntoWords(String text) {
 		return text.toLowerCase().split("[\\s\\.\\,\\-\"]+");
 	}
 	
+	/**
+	 * This is the main method where all below methods are called.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		String text = "ERNEST HEMINGWAY STARY CZŁOWIEK I MORZE Był starym człowiekiem " +
                 "który łowił ryby w Golfstromie pływając samotnie łodzią i oto już od osiemdziesięciu " +
@@ -84,20 +119,21 @@ public class Przegladak {
 		String morze = "morze";
 		String stary = "stary";
 
-		int countMorze = countWords(morze, text);
+		int countMorze = countSpecificWords(morze, text);
 		System.out.printf("Occurences of word 'morze': %d%n", countMorze);
 		
-		int countStary = countWords(stary, text);
+		int countStary = countSpecificWords(stary, text);
 		System.out.printf("Occurences of word 'stary': %d%n", countStary);
 		
 		int allWordsInText = countAllWords(text);
 		System.out.printf("All words in above text: %d%n", allWordsInText);
 		
 		int wordsWithNoConj = countWordsNoConjunction(text);
-		System.out.printf("Words in text excluding conj: %d%n", wordsWithNoConj);
+		System.out.printf("Words in text excluding any conjunction: %d%n", wordsWithNoConj);
 
 		int wordsWithECAtTheEnd = countWordsWithSpecificEnding("ec", text);
 		System.out.printf("Words in text 'EC': %d%n", wordsWithECAtTheEnd);
 		
 	}
+	
 }
