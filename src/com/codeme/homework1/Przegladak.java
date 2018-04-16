@@ -94,10 +94,7 @@ public class Przegladak {
 		return text.toLowerCase().split("[\\s\\.\\,\\-\"]+");
 	}
 	
-	/**
-	 * This is the main method where all below methods are called.
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
 		String text = "ERNEST HEMINGWAY STARY CZŁOWIEK I MORZE Był starym człowiekiem " +
                 "który łowił ryby w Golfstromie pływając samotnie łodzią i oto już od osiemdziesięciu " +
