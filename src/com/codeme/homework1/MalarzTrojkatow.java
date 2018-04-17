@@ -1,10 +1,16 @@
 package com.codeme.homework1;
 
 public class MalarzTrojkatow {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		for(int y = 1; y < 4; y++) {
+	
+	/** Prints out
+	 * /\
+	 * / \
+	 * / \
+	 * using while loop
+	 */
+	public static void printTrianglesWhile() {
+		int y = 1;
+		while (y < 4) {
 			for(int x = 1; x < 4; x++) {
 				if (x==1) {
 					System.out.print("/");
@@ -23,7 +29,15 @@ public class MalarzTrojkatow {
 					}
 				}
 			}
+			y++;
 		}
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		printTrianglesWhile();		
+		
 	}
 
 }
