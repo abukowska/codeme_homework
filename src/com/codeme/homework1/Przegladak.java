@@ -17,13 +17,13 @@ public class Przegladak {
 	 * @see splitTextIntoWords method from below
 	 */
 	public static int countSpecificWords(String searchedWord, String content) {
-		String[] splitted_text = splitTextIntoWords(content);
+		String[] splittedText = splitTextIntoWords(content);
 		
 		Pattern pattern = Pattern.compile("\\w*" + searchedWord + "\\w*");
 				
 		int counter = 0;
 		searchedWord = searchedWord.toLowerCase();
-		for (String word : splitted_text) {
+		for (String word : splittedText) {
 			Matcher m = pattern.matcher(word);
 			if (m.matches()) {
 				counter += 1;
@@ -38,8 +38,8 @@ public class Przegladak {
 	 * @return Number of counted words
 	 */
 	public static int countAllWords(String content) {
-		String[] splitted_text = splitTextIntoWords(content);
-		return splitted_text.length;
+		String[] splittedText = splitTextIntoWords(content);
+		return splittedText.length;
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class Przegladak {
 	 * @return Number of counted words
 	 */
 	public static int countWordsNoConjunction(String content) {
-		String[] splitted_text = splitTextIntoWords(content);
+		String[] splittedText = splitTextIntoWords(content);
 		String[] conjunction = {"a", "i", "oraz", "tudzież", "albo", "lub", "czy", "ani", "ni", "aczkolwiek",
 								"ale", "jednak", "lecz", "natomiast", "zaś", "czyli", "mianowicie", "to jest",
 								"dlatego", "przeto", "tedy", "więc", "zatem", "toteż", "aby", "bo", "choć", 
@@ -57,7 +57,7 @@ public class Przegladak {
 		List<String> conjunctionList = Arrays.asList(conjunction);
 		
 		int counter = 0;
-		for (String word : splitted_text) {
+		for (String word : splittedText) {
 			if (conjunctionList.contains(word)) {
 				continue;
 			}
@@ -73,10 +73,10 @@ public class Przegladak {
 	 * @return Number of counted words
 	 */
 	public static int countWordsWithSpecificEnding(String ending, String content) {
-		String[] splitted_text = splitTextIntoWords(content);
+		String[] splittedText = splitTextIntoWords(content);
 		
 		int counter = 0;
-		for (String word : splitted_text) {
+		for (String word : splittedText) {
 			if (word.endsWith(ending.toLowerCase())) {
 				counter += 1;
 			}
