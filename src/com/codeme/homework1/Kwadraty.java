@@ -5,7 +5,7 @@ public class Kwadraty {
 	/**
 	 * Prints out:
 	 * 
-	 * ############
+	 *############
 	 *#          #
 	 *#          #
 	 *#  ######  #
@@ -18,7 +18,7 @@ public class Kwadraty {
 	 *#          #
 	 *############
 	 *
-	 *Using 2 for loops
+	 * Using 2 for loops
 	 */
 	
 	
