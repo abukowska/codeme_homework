@@ -96,6 +96,7 @@ public class Przegladak {
 	
 	
 	public static void main(String[] args) {
+		
 		String text = "ERNEST HEMINGWAY STARY CZŁOWIEK I MORZE Był starym człowiekiem " +
                 "który łowił ryby w Golfstromie pływając samotnie łodzią i oto już od osiemdziesięciu " +
                 "czterech dni nie schwytał ani jednej. Przez pierwsze czterdzieści dni pływał " +
