@@ -130,7 +130,7 @@ public class Przegladak {
 		System.out.printf("Words in text excluding any conjunction: %d%n", wordsWithNoConj);
 
 		int wordsWithECAtTheEnd = countWordsWithSpecificEnding("ec", text);
-		System.out.printf("Words in text 'EC': %d%n", wordsWithECAtTheEnd);
+		System.out.printf("Words in text -- 'EC' ending: %d%n", wordsWithECAtTheEnd);
 		
 	}
 	
