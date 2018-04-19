@@ -6,8 +6,8 @@ public class MalarzTrojkatow {
 	 * 
 	 *     /\
 	 *    /  \
-	 *  /    \
-	 * ------
+	 *   /    \
+	 *  ------
 	 * 
 	 * using 2 while loops
 	 */
