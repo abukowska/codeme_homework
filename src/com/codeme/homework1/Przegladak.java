@@ -5,6 +5,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Przegladak {
 	
@@ -97,26 +106,18 @@ public class Przegladak {
 	
 	public static void main(String[] args) {
 		
-		String text = "ERNEST HEMINGWAY STARY CZŁOWIEK I MORZE Był starym człowiekiem " +
-                "który łowił ryby w Golfstromie pływając samotnie łodzią i oto już od osiemdziesięciu " +
-                "czterech dni nie schwytał ani jednej. Przez pierwsze czterdzieści dni pływał " +
-                "z nim pewien chłopiec. Ale po czterdziestu jałowych dniach rodzice oświadczyli mu, " +
-                "że stary jest teraz bezwzględnie i ostatecznie salao, co jest najgorszą formą określenia " +
-                "\"pechowy\" i chłopiec na ich rozkaz popłynął inną łodzią, która w pierwszym tygodniu złowiła " +
-                "trzy dobre ryby. Smuciło go to, że stary co dzień wraca z pustą łodzią, więc zawsze przychodził " +
-                "i pomagał mu odnosić zwoje linek albo osęk i harpun i żagiel owinięty dokoła masztu. " +
-                "Żagiel był wylatany workami od mąki, a zwinięty wyglądał jak sztandar nieodmiennej klęski. " +
-                "Stary był suchy i chudy, na karku miał głębokie bruzdy. Brunatne plamy po niezłośliwym raku skóry, " +
-                "występującym wskutek odblasku słońca na morzach tropikalnych, widniały na jego policzkach. " +
-                "Plamy te biegły po obu stronach twarzy, a ręce miał poorane głębokimi szramami od wyciągania " +
-                "linką ciężkich ryb. Ale żadna z tych szram nie była świeża. Były one tak stare jak erozje " +
-                "na bezrybnej pustyni. Wszystko w nim było stare prócz oczu, które miały tę samą barwę co morze " +
-                "i były wesołe i niezłomne. - Santiago - powiedział do niego chłopiec, kiedy wspinali się na stromy " +
-                "brzeg od miejsca, gdzie stała łódź wciągnięta na piasek. - Mógłbym znów z tobą popłynąć ";
-
 		String morze = "morze";
 		String stary = "stary";
-
+		String text = null;
+		
+		try {
+			Scanner scanner = new Scanner(Paths.get(".//src//com//codeme//scanner//text.txt"), StandardCharsets.UTF_8.name());
+			text = scanner.useDelimiter("\\A").next();
+			scanner.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
 		int countMorze = countSpecificWords(morze, text);
 		System.out.printf("Occurences of word 'morze': %d%n", countMorze);
 		
