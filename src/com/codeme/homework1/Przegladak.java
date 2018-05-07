@@ -105,7 +105,7 @@ public class Przegladak {
 		String text = null;
 		
 		try {
-			Scanner scanner = new Scanner(Paths.get(".//src//com//codeme//scanner//text.txt"), StandardCharsets.UTF_8.name());
+			Scanner scanner = new Scanner(Paths.get(".//src//resources//text.txt"), StandardCharsets.UTF_8.name());
 			text = scanner.useDelimiter("\\A").next();
 			scanner.close();
 		} catch (IOException ioe) {
@@ -125,7 +125,7 @@ public class Przegladak {
 		System.out.printf("Words in text excluding any conjunction: %d%n", wordsWithNoConj);
 
 		int wordsWithECAtTheEnd = countWordsWithSpecificEnding("ec", text);
-		System.out.printf("Words in text -- 'EC' ending: %d%n", wordsWithECAtTheEnd);
+		System.out.printf("Words in text with 'EC' ending: %d%n", wordsWithECAtTheEnd);
 		
 	}
 	
