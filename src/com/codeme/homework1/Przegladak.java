@@ -4,8 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
@@ -97,20 +102,43 @@ public class Przegladak {
 		return text.toLowerCase().split("[\\s\\.\\,\\-\"]+");
 	}
 	
+	public static String openFileAndGetText(String filePath) throws FileNotFoundException, IOException {
+		StringBuffer bufferedText = new StringBuffer();
+		String textFromFile;
+		
+		FileInputStream fis = new FileInputStream(filePath);
+		BufferedReader bReader = new BufferedReader(new InputStreamReader(fis));
+		
+		String lineOfFile;
+		while((lineOfFile = bReader.readLine()) != null) {
+			bufferedText.append(lineOfFile);
+		}
+		
+		textFromFile = bufferedText.toString();
+		return textFromFile;
+	}
+	
 	
 	public static void main(String[] args) {
 		
 		String morze = "morze";
 		String stary = "stary";
-		String text = null;
+		Path filePath = Paths.get(".//src//resources//text.txt");		
+		String text = "";
 		
 		try {
-			Scanner scanner = new Scanner(Paths.get(".//src//resources//text.txt"), StandardCharsets.UTF_8.name());
-			text = scanner.useDelimiter("\\A").next();
-			scanner.close();
-		} catch (IOException ioe) {
+			text = openFileAndGetText(filePath.toString());
+		}
+		catch (FileNotFoundException fnf) {
+			System.out.println("File not found.");
+			fnf.printStackTrace();
+		} 
+		catch (IOException ioe) {
+			System.out.println("Couldn't write data.");
 			ioe.printStackTrace();
 		}
+		
+		System.out.println(text);
 		
 		int countMorze = countSpecificWords(morze, text);
 		System.out.printf("Occurences of word 'morze': %d%n", countMorze);
