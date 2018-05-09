@@ -108,7 +108,7 @@ public class Przegladak {
 	 */
 	public static String openFileAndGetText(String filePath) throws FileNotFoundException, IOException {
 		StringBuffer bufferedText = new StringBuffer();
-		String textFromFile;
+		String textFromFile = null;
 		
 		FileInputStream fis = new FileInputStream(filePath);
 		BufferedReader bReader = new BufferedReader(new InputStreamReader(fis));
