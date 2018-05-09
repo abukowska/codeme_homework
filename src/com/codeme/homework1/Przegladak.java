@@ -125,8 +125,6 @@ public class Przegladak {
 	
 	public static void main(String[] args) {
 		
-		String morze = "morze";
-		String stary = "stary";
 		Path filePath = Paths.get(".//src//resources//text.txt");		
 		String text = "";
 		
@@ -143,9 +141,9 @@ public class Przegladak {
 		}
 		
 		
-		System.out.printf("Occurences of word 'morze': %d%n", countSpecificWords(morze, text));
+		System.out.printf("Occurences of word 'morze': %d%n", countSpecificWords("morze", text));
 		
-		System.out.printf("Occurences of word 'stary': %d%n", countSpecificWords(stary, text));
+		System.out.printf("Occurences of word 'stary': %d%n", countSpecificWords("stary", text));
 		
 		System.out.printf("All words in above text: %d%n", countAllWords(text));
 		
