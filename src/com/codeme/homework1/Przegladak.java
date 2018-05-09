@@ -101,6 +101,11 @@ public class Przegladak {
 		return text.toLowerCase().split("[\\s\\.\\,\\-\"]+");
 	}
 	
+	/**
+	 * Open a file and returns its inner content
+	 * @param filePath A path to the file. 
+	 * @return String Text from the file.
+	 */
 	public static String openFileAndGetText(String filePath) throws FileNotFoundException, IOException {
 		StringBuffer bufferedText = new StringBuffer();
 		String textFromFile;
@@ -137,22 +142,16 @@ public class Przegladak {
 			ioe.printStackTrace();
 		}
 		
-		System.out.println(text);
 		
-		int countMorze = countSpecificWords(morze, text);
-		System.out.printf("Occurences of word 'morze': %d%n", countMorze);
+		System.out.printf("Occurences of word 'morze': %d%n", countSpecificWords(morze, text));
 		
-		int countStary = countSpecificWords(stary, text);
-		System.out.printf("Occurences of word 'stary': %d%n", countStary);
+		System.out.printf("Occurences of word 'stary': %d%n", countSpecificWords(stary, text));
 		
-		int allWordsInText = countAllWords(text);
-		System.out.printf("All words in above text: %d%n", allWordsInText);
+		System.out.printf("All words in above text: %d%n", countAllWords(text));
 		
-		int wordsWithNoConj = countWordsNoConjunction(text);
-		System.out.printf("Words in text excluding any conjunction: %d%n", wordsWithNoConj);
+		System.out.printf("Words in text excluding any conjunction: %d%n", countWordsNoConjunction(text));
 
-		int wordsWithECAtTheEnd = countWordsWithSpecificEnding("ec", text);
-		System.out.printf("Words in text with 'EC' ending: %d%n", wordsWithECAtTheEnd);
+		System.out.printf("Words in text with 'EC' ending: %d%n", countWordsWithSpecificEnding("ec", text));
 		
 	}
 	
