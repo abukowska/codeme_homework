@@ -126,7 +126,7 @@ public class Przegladak {
 	public static void main(String[] args) {
 		
 		Path filePath = Paths.get(".//src//com//codeme//homework1//resources//text.txt");		
-		String text = "";
+		String text = null;
 		
 		try {
 			text = openFileAndGetText(filePath.toString());
