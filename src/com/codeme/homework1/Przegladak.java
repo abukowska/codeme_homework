@@ -125,7 +125,7 @@ public class Przegladak {
 	
 	public static void main(String[] args) {
 		
-		Path filePath = Paths.get(".//src//resources//text.txt");		
+		Path filePath = Paths.get(".//src//com//codeme//homework1//resources//text.txt");		
 		String text = "";
 		
 		try {
@@ -140,16 +140,17 @@ public class Przegladak {
 			ioe.printStackTrace();
 		}
 		
-		
-		System.out.printf("Occurences of a word 'morze': %d%n", countSpecificWords("morze", text));
-		
-		System.out.printf("Occurences of a word 'stary': %d%n", countSpecificWords("stary", text));
-		
-		System.out.printf("All words in the above text: %d%n", countAllWords(text));
-		
-		System.out.printf("Words in the text excluding any conjunction: %d%n", countWordsNoConjunction(text));
-
-		System.out.printf("Words in the text with an 'EC' ending: %d%n", countWordsWithSpecificEnding("ec", text));
+		if(text != null) {
+			System.out.printf("Occurences of a word 'morze': %d%n", countSpecificWords("morze", text));
+			
+			System.out.printf("Occurences of a word 'stary': %d%n", countSpecificWords("stary", text));
+			
+			System.out.printf("All words in the above text: %d%n", countAllWords(text));
+			
+			System.out.printf("Words in the text excluding any conjunction: %d%n", countWordsNoConjunction(text));
+	
+			System.out.printf("Words in the text with an 'EC' ending: %d%n", countWordsWithSpecificEnding("ec", text));
+		}
 		
 	}
 	
