@@ -141,15 +141,15 @@ public class Przegladak {
 		}
 		
 		
-		System.out.printf("Occurences of word 'morze': %d%n", countSpecificWords("morze", text));
+		System.out.printf("Occurences of a word 'morze': %d%n", countSpecificWords("morze", text));
 		
-		System.out.printf("Occurences of word 'stary': %d%n", countSpecificWords("stary", text));
+		System.out.printf("Occurences of a word 'stary': %d%n", countSpecificWords("stary", text));
 		
-		System.out.printf("All words in above text: %d%n", countAllWords(text));
+		System.out.printf("All words in the above text: %d%n", countAllWords(text));
 		
-		System.out.printf("Words in text excluding any conjunction: %d%n", countWordsNoConjunction(text));
+		System.out.printf("Words in the text excluding any conjunction: %d%n", countWordsNoConjunction(text));
 
-		System.out.printf("Words in text with 'EC' ending: %d%n", countWordsWithSpecificEnding("ec", text));
+		System.out.printf("Words in the text with an 'EC' ending: %d%n", countWordsWithSpecificEnding("ec", text));
 		
 	}
 	
