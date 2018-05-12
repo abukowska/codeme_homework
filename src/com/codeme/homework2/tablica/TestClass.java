@@ -22,7 +22,7 @@ public class TestClass {
 		Appendable k = app.append(e, 3);
 				
 		Object f = new Object();
-		Appendable aa = app.append(f, 16);
+		Appendable aa = app.append(f, 4);
 		
 		System.out.println(aa);
 	}

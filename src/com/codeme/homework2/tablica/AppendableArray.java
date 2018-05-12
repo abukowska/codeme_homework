@@ -26,10 +26,8 @@ public class AppendableArray implements Appendable {
 	public Appendable append(Object item, int index) {
 		if (index <= appendArray.length - 1) {
 			appendArray[index] = item;
-			return this;
 		} else if (index == appendArray.length) {
 			append(item);
-			return this;
 		}
 		return this;
 	}
