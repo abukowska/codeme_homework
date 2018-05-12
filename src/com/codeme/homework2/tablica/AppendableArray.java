@@ -2,7 +2,12 @@ package com.codeme.homework2.tablica;
 
 import java.util.Arrays;
 
-
+/**
+ * Implementacja interfejsu do zwiększania kolekcji
+ *
+ * @author Asia Zawadzka
+ *
+ */
 public class AppendableArray implements Appendable {
 	private Object[] appendArray;
 	
