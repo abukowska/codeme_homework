@@ -15,7 +15,7 @@ public class BasicEngima {
 	
 	private File file;
 	private File copyFile;
-	StringBuilder encodedContent;
+	private StringBuilder encodedContent;
 
 	public void copyExistingFileAndEncrypt(String absolutePath) {
 		file = new File("/home/jzawadzka/text_file/textfile");
