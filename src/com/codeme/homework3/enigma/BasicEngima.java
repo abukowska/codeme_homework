@@ -91,7 +91,7 @@ public class BasicEngima {
 		String filePath = "/home/jzawadzka/text_file/textfile";
 		BasicEngima enigma = new BasicEngima();
 		enigma.copyExistingFileAndEncrypt(filePath);
-		//enigma.decryptPreviouslyEncryptedCopyOfFileAndOverwrite();
+		enigma.decryptPreviouslyEncryptedCopyOfFileAndOverwrite();
 	}
 
 }
