@@ -24,7 +24,7 @@ public class BasicEngima {
 				copyFile = new File(absolutePath + "_copy");
 				try {
 					Files.copy(file.toPath(), copyFile.toPath());
-					codeCopiedFile();
+					encryptCopiedFile();
 					System.out.println("File safely encrypted and stored under location: " + copyFile.getAbsolutePath() + ":\n");
 					break;
 				} catch (FileAlreadyExistsException foe) {
@@ -37,7 +37,7 @@ public class BasicEngima {
 		}
 	}
 
-	private void codeCopiedFile() throws IOException {
+	private void encryptCopiedFile() throws IOException {
 		encodedContent = new StringBuilder();
 		while (true) {
 			try (BufferedReader bReader = new BufferedReader(new InputStreamReader(new FileInputStream(copyFile)))) {
