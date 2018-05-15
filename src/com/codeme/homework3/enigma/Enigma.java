@@ -13,9 +13,7 @@ import java.io.OutputStreamWriter;
 public class Enigma {
 
 	public static void encryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException {
-		if (new File(filePath).exists() == false) {
-			throw new FileNotFoundException(filePath);
-		}
+		checkIfFileExists(filePath);
 
 		// make another file for encryption
 		String copyFilePath = filePath.replace(".txt", "") + ".scr";
@@ -30,9 +28,7 @@ public class Enigma {
 	}
 
 	public static void decryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException {
-		if (new File(filePath).exists() == false) {
-			throw new FileNotFoundException(filePath);
-		}
+		checkIfFileExists(filePath);
 
 		// make another file for decryption
 		String copyFilePath = filePath.replace(".scr", "") + ".txt";
@@ -94,6 +90,12 @@ public class Enigma {
 			writer.flush();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+	}
+	
+	private static void checkIfFileExists(String filePath) throws FileNotFoundException {
+		if (new File(filePath).exists() == false) {
+			throw new FileNotFoundException(filePath);
 		}
 	}
 	
