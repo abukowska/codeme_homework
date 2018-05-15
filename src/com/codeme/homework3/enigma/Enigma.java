@@ -9,44 +9,43 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.nio.file.FileAlreadyExistsException;
 
 public class Enigma {
-		
-	public static void encryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException, FileAlreadyExistsException {	
-		
-		if(new File(filePath).exists() == false) {
+
+	public static void encryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException {
+		if (new File(filePath).exists() == false) {
 			throw new FileNotFoundException(filePath);
 		}
-		
+
+		// make another file for encryption
 		String copyFilePath = filePath.replace(".txt", "") + ".scr";
 		File copyFile = new File(copyFilePath);
-		try	{
+		try {
 			copyFile.createNewFile();
-		} catch(IOException ioe) {
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
-		}		
-		String encryptedContent = encryptContent(openFileAndGetContent(filePath));		
+		}
+		String encryptedContent = encryptContent(openFileAndGetContent(filePath));
 		saveContentToFile(encryptedContent, copyFile);
 	}
-	
-	public static void decryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException {	
-		if(new File(filePath).exists() == false) {
+
+	public static void decryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException {
+		if (new File(filePath).exists() == false) {
 			throw new FileNotFoundException(filePath);
 		}
-		
-		//make another file
+
+		// make another file for decryption
 		String copyFilePath = filePath.replace(".scr", "") + ".txt";
 		File copyFile = new File(copyFilePath);
-		try	{
+		try {
 			copyFile.createNewFile();
-		} catch(IOException ioe) {
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
-		}		
-		String decryptedContent = decryptContent(openFileAndGetContent(filePath));		
+		}
+		String decryptedContent = decryptContent(openFileAndGetContent(filePath));
 		saveContentToFile(decryptedContent, copyFile);
 	}
-	
+
 	private static String openFileAndGetContent(String path) {
 		StringBuilder sourceContent = new StringBuilder();
 		while (true) {
@@ -55,48 +54,47 @@ public class Enigma {
 				while ((line = bReader.readLine()) != null) {
 					sourceContent.append(line + "\n");
 				}
-				break;	
+				break;
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				break;
-			} 
+			}
 		}
-		
 		return sourceContent.toString();
 	}
-	
+
 	private static String encryptContent(String content) {
 		StringBuilder sBuilder = new StringBuilder();
-		String[] contentSplittedIntoLines = content.toString().split("\n");		
-		for(String oneLine : contentSplittedIntoLines) {
-			for(char oneChar : oneLine.toCharArray()) {
+		String[] contentSplittedIntoLines = content.toString().split("\n");
+		for (String oneLine : contentSplittedIntoLines) {
+			for (char oneChar : oneLine.toCharArray()) {
 				sBuilder.append(oneChar += 2);
 			}
 			sBuilder.append("\n");
 		}
-		
 		return sBuilder.toString();
 	}
-	
+
 	private static String decryptContent(String content) {
 		StringBuilder sBuilder = new StringBuilder();
-		String[] contentSplittedIntoLines = content.toString().split("\n");		
-		for(String oneLine : contentSplittedIntoLines) {
-			for(char oneChar : oneLine.toCharArray()) {
+		String[] contentSplittedIntoLines = content.toString().split("\n");
+		for (String oneLine : contentSplittedIntoLines) {
+			for (char oneChar : oneLine.toCharArray()) {
 				sBuilder.append(oneChar -= 2);
 			}
 			sBuilder.append("\n");
 		}
-		
-		return sBuilder.toString();		
+		return sBuilder.toString();
 	}
-		
+
 	private static void saveContentToFile(String content, File destinationFile) {
-		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destinationFile)))) {
+		try (BufferedWriter writer = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(destinationFile)))) {
 			writer.write(content);
 			writer.flush();
-		} catch(IOException ioe) {
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
+	
 }
