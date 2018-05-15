@@ -92,7 +92,7 @@ public class ClInterface {
 					println("Please choose option 1, 2 OR exit.");
 				}
 			} while (true);
-			println("Thanks for choosing.");
+			println("Thanks for choosing our software ;).");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
