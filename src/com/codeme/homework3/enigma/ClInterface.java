@@ -49,8 +49,8 @@ public class ClInterface {
 		try {
 			do {
 				displayMenu();
-				String option = read();
-				if (option.toLowerCase().trim().equals("1")) {
+				String option = read().toLowerCase().trim();
+				if (option.equals("1")) {
 					while (true) {
 						println("Please provide an absolute path to the *.txt file & press Enter:");
 						String userPath = read().trim();
@@ -68,7 +68,7 @@ public class ClInterface {
 							println("!Not a proper path to the file or invalid file.");
 						}
 					}
-				} else if (option.toLowerCase().trim().equals("2")) {
+				} else if (option.equals("2")) {
 					while (true) {
 						println("Please provide an absolute path to the *.scr file & press Enter:");
 						String userPath = read().trim();
@@ -86,7 +86,7 @@ public class ClInterface {
 							println("!Not a proper path to the file or invalid file.");
 						}
 					}
-				} else if (option.toLowerCase().trim().equals("exit")) {
+				} else if (option.equals("exit")) {
 					break;
 				} else {
 					println("Please choose option 1, 2 OR exit.");
