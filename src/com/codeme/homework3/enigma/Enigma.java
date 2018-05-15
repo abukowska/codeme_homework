@@ -4,15 +4,21 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.file.FileAlreadyExistsException;
 
 public class Enigma {
 		
-	public static void encryptFileBasedOnSourceAndSave(String filePath) {	
-		//make a copy
+	public static void encryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException, FileAlreadyExistsException {	
+		
+		if(new File(filePath).exists() == false) {
+			throw new FileNotFoundException(filePath);
+		}
+		
 		String copyFilePath = filePath.replace(".txt", "") + ".scr";
 		File copyFile = new File(copyFilePath);
 		try	{
@@ -24,8 +30,12 @@ public class Enigma {
 		saveContentToFile(encryptedContent, copyFile);
 	}
 	
-	public static void decryptFileBasedOnSourceAndSave(String filePath) {	
-		//make a copy
+	public static void decryptFileBasedOnSourceAndSave(String filePath) throws FileNotFoundException {	
+		if(new File(filePath).exists() == false) {
+			throw new FileNotFoundException(filePath);
+		}
+		
+		//make another file
 		String copyFilePath = filePath.replace(".scr", "") + ".txt";
 		File copyFile = new File(copyFilePath);
 		try	{
@@ -37,7 +47,6 @@ public class Enigma {
 		saveContentToFile(decryptedContent, copyFile);
 	}
 	
-	
 	private static String openFileAndGetContent(String path) {
 		StringBuilder sourceContent = new StringBuilder();
 		while (true) {
@@ -46,10 +55,11 @@ public class Enigma {
 				while ((line = bReader.readLine()) != null) {
 					sourceContent.append(line + "\n");
 				}
-				break;
+				break;	
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
-			}
+				break;
+			} 
 		}
 		
 		return sourceContent.toString();
@@ -80,8 +90,7 @@ public class Enigma {
 		
 		return sBuilder.toString();		
 	}
-	
-	
+		
 	private static void saveContentToFile(String content, File destinationFile) {
 		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destinationFile)))) {
 			writer.write(content);
@@ -89,12 +98,5 @@ public class Enigma {
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] args) {
-
-		String filePath = "/home/jzawadzka/text_file/textfile.scr";
-		Enigma.decryptFileBasedOnSourceAndSave(filePath);
-		
 	}
 }
