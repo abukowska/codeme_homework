@@ -9,6 +9,7 @@ import java.util.Arrays;
  *
  */
 public class AppendableArray implements Appendable {
+	
 	private Object[] appendArray;
 	
 	public AppendableArray() {
@@ -26,14 +27,30 @@ public class AppendableArray implements Appendable {
 		}
 		return this;
 	}
-
+	
+	public Object[] getAppendableArray() {
+		return appendArray;
+	}
+	
 	@Override
-	public Appendable append(Object item, int index) {
-		if (index <= appendArray.length - 1) {
-			appendArray[index] = item;
-		} else if (index == appendArray.length) {
-			append(item);
+	public Appendable removeElement(Object item) {
+		Object[] appendArrayNew1 = new Object[appendArray.length - 1];
+		int counter = 0;
+		int itemOccurenceCounter = 0;
+		for(Object element : appendArray) {
+			if(!element.equals(item)) {
+				appendArrayNew1[counter] = element;
+				counter++;
+			} else {
+				itemOccurenceCounter++;
+			}
 		}
+		if(itemOccurenceCounter > 1) {
+			Object[] appendArrayNewIfManySameItems = Arrays.copyOf(appendArrayNew1, appendArray.length - itemOccurenceCounter);
+			appendArray = appendArrayNewIfManySameItems;
+			return this;
+		}
+		appendArray = appendArrayNew1;
 		return this;
 	}
 

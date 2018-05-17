@@ -17,18 +17,9 @@ public interface Appendable {
 	 * @return Powiększana kolekcja
 	 */
 	public Appendable append(Object item);
-
-	/**
-	 * Dodanie elementu na podaną pozycję, jeśli na danej pozycji jest już element
-	 * zostanie zamieniony
-	 * 
-	 * @param item
-	 *            Wrzucany element
-	 * @param index
-	 *            Pozycja elementu
-	 * 
-	 * @return Powiększana kolekcja
-	 */
-	public Appendable append(Object item, int index);
+	
+	public Object[] getAppendableArray();
+	
+	public Appendable removeElement(Object item);
 
 }
