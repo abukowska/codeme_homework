@@ -14,7 +14,6 @@ import com.codeme.homework2.warehouse.model.ProductItem;
 import com.codeme.homework2.warehouse.model.Warehouse;
 import com.codeme.homework2.warehouse.model.Water;
 
-import sun.text.resources.cldr.nus.FormatData_nus;
 
 public class ClInterface {
 	private BufferedWriter writer;
@@ -44,11 +43,11 @@ public class ClInterface {
 
 	private void displayMenu() throws IOException {
 		println("\n--- Virtual Shop ---");
-		println("Choose option, 1 OR 2:");
+		println("Choose option, 1, 2, 3 OR 4:");
 		println("(1) See available products.");
 		println("(2) Create a new product and add it to the warehouse.");
-		println("(3) Add more existing products to the warehouse.");
-		println("(4) Remove existing products from the warehouse.");
+		println("(3) Add more already existing products to the warehouse.");
+		println("(4) Remove already existing products from the warehouse.");
 		println("");
 		println("//For exit: \"exit\"");
 	}
@@ -68,20 +67,10 @@ public class ClInterface {
 
 	public void start() {
 		Warehouse warehouse = new Warehouse();
-		Water waterN = new Water("woda Naleczowianka", 2.5, "l");
-		Water waterZ = new Water("woda Zywiec", 2.4, "l");
-		Bread bread = new Bread("bread", 3.30, "piece");
-		Potatoes potatoes = new Potatoes("potatoes", 4.5, "kg");
-		warehouse.addToWarehouse(waterZ, 1);
-		warehouse.addToWarehouse(waterZ, 3);
-		warehouse.addToWarehouse(bread, 11);
-		warehouse.addToWarehouse(potatoes, 30);
-		warehouse.addToWarehouse(potatoes, 12);
-		warehouse.addToWarehouse(potatoes, -10);
-		warehouse.removeFromWarehouse(1, 2);
-		warehouse.removeFromWarehouse(1, 3);
-		warehouse.removeFromWarehouse(2, 3);
-		warehouse.removeFromWarehouse(3, -50);
+		warehouse.addToWarehouse(new ProductItem("woda Naleczowianka", 2.5, "l"), 1);
+		warehouse.addToWarehouse(new ProductItem("woda Zywiec", 2.4, "l"), 3);
+		warehouse.addToWarehouse(new ProductItem("bread", 3.30, "piece"), 11);
+		warehouse.addToWarehouse(new ProductItem("potatoes", 4.5, "kg"), 30);
 		try {
 			do {
 				displayMenu();
@@ -166,8 +155,7 @@ public class ClInterface {
 					} while (true);
 				
 				} else if (option.trim().equals("3")) {
-					displayAvailableProducts(warehouse);
-					
+					displayAvailableProducts(warehouse);				
 					Integer prodNoToBeIncreased = 0;
 					Integer newAmount = 0;
 					Boolean exit = false;
@@ -193,10 +181,7 @@ public class ClInterface {
 								} catch (NumberFormatException nfe) {
 									println("Please add amount in a numerical format.");
 								}
-							}
-							
-							
-	
+							}	
 						} while (true);
 						
 						if (exit == true) {
@@ -236,13 +221,75 @@ public class ClInterface {
 						}
 						println("Product increased!");
 						displayAvailableProducts(warehouse);
-						break;
-						
+						break;				
 				} while (true);
 				
 				} else if (option.trim().equals("4")) {
-				
-					
+					displayAvailableProducts(warehouse);				
+					Integer prodNoToBeDecreased = 0;
+					Integer amountDecreased = 0;
+					Boolean exit = false;
+					do {
+						do {
+							println("Choose which of the products amount you'd like to decrease:");
+							String productNoToBeDecreased = read().trim();
+							int noOfWarehoseItems = warehouse.getWarehouseItems().size();
+							
+							if (productNoToBeDecreased.equals("")) {
+								println("Please provide a product no to be increased.");
+							} else if (productNoToBeDecreased.trim().toLowerCase().equals("exit")) {
+								exit = true;
+								break;
+							} else {
+								try {
+									prodNoToBeDecreased = Integer.valueOf(productNoToBeDecreased);
+									if (noOfWarehoseItems - prodNoToBeDecreased < 0 || prodNoToBeDecreased <= 0) {
+										println("Index out of range. Provide valid no.");
+										continue;
+									}
+									break;
+								} catch (NumberFormatException nfe) {
+									println("Please add amount in a numerical format.");
+								}
+							}
+						} while (true);
+						
+						if (exit == true) {
+							println("Product not created. Exiting.");
+							break;
+						}
+						
+						do {
+							println("Add amount: ");
+							String amountToBeDecreased = read().trim();		
+							if (amountToBeDecreased.equals("")) {
+								println("Please provide one. Product no to be decreased.");
+							} else if (amountToBeDecreased.trim().toLowerCase().equals("exit")) {
+								exit = true;
+								break;
+							} else {
+								try {
+									amountDecreased = Integer.valueOf(amountToBeDecreased);
+									if ( warehouse.getNoOfProductItemsBasedOnProdNo(prodNoToBeDecreased)- amountDecreased < 0 || amountDecreased <= 0) {
+										println("There are not enough products to proceed wih the operation.");
+										continue;
+									}									
+									break;
+								} catch (NumberFormatException nfe) {
+									println("Please add amount in a numerical format.");
+								}
+							}				
+						} while (true);
+						
+						if (exit == true) {
+							println("Product not created. Exiting.");
+							break;
+						}
+						warehouse.removeFromWarehouse(prodNoToBeDecreased, amountDecreased);
+						println("Product decreased!");
+						displayAvailableProducts(warehouse);
+						break;					
+				} while (true);				
 				} else if (option.toLowerCase().equals("exit")) {
 					break;
 				} else {

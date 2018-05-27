@@ -8,7 +8,7 @@ public class ProductItem extends Product {
 
 	@Override
 	public String toString() {
-		return String.format("%s -- %.2f per 1%s", super.name, super.price, super.measure);
+		return String.format("%s -- %.2f per 1 %s", super.name, super.price, super.measure);
 	}
 
 	@Override

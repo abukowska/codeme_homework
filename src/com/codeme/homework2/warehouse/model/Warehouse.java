@@ -59,6 +59,13 @@ public class Warehouse{
 		return true;
 	}
 	
+	public Integer getNoOfProductItemsBasedOnProdNo(Integer prodNo) {
+		ProductItem searchedProduct = test.get(prodNo - 1);
+		Integer storedProductAmount = warehouse.get(searchedProduct);
+		return storedProductAmount;
+	}
+	
+	
 	public Map<ProductItem, Integer> getWarehouseItems() {
 		return warehouse;
 	}
