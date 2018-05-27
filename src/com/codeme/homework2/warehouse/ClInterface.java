@@ -74,7 +74,7 @@ public class ClInterface {
 		warehouse.addToWarehouse(potatoes, 12);
 		warehouse.addToWarehouse(potatoes, -10);
 		warehouse.removeFromWarehouse(1, 2);
-		warehouse.removeFromWarehouse(1, 2);
+		warehouse.removeFromWarehouse(1, 3);
 		warehouse.removeFromWarehouse(2, 3);
 		warehouse.removeFromWarehouse(3, -50);
 		try {

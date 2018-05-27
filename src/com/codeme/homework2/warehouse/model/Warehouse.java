@@ -48,7 +48,7 @@ public class Warehouse{
 				warehouse.replace(searchedProduct, storedProductAmount - amount);
 				return true;
 			} else {
-				System.out.println("Amount must be higer than zero.");
+				System.out.printf("Unable to remove the product. Maximum amount of %s in the store is %s.", searchedProduct.getName(), storedProductAmount);
 			}			
 		}
 		return false;			
