@@ -36,6 +36,29 @@ public class Warehouse{
 		return false;			
 	}
 	
+	public boolean addToWarehouse(Integer itemFromWarehouseIndex, Integer amount) throws IllegalArgumentException {
+		if (amount > 0) {
+			if(warehouse.size() > 0) {
+				for(ProductItem pItem : warehouse.keySet()) {
+					ProductItem searchedProduct = test.get(itemFromWarehouseIndex - 1);
+					Integer storedProductAmount = warehouse.get(searchedProduct);
+					warehouse.replace(searchedProduct, storedProductAmount + amount);
+					return true;		
+				}
+			} else {
+				System.out.println("There are no products in the warehouse you could increase its amount");
+				return false;
+			}
+		}
+		throw new IllegalArgumentException("Amount ought to be higher than zero.");	
+	}
+	
+	public boolean addToWarehouse(ProductItem productItem) {
+		warehouse.put(productItem, 0);
+		test.add(productItem);
+		return true;
+	}
+	
 	public Map<ProductItem, Integer> getWarehouseItems() {
 		return warehouse;
 	}

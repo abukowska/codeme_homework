@@ -4,7 +4,7 @@ public abstract class Product {
 
 	protected String name;
 	protected double price;
-	protected String measure;
+	protected String measure; //kg OR l OR piece
 	
 	public Product(String name, double price, String measure) {
 		this.name = name;

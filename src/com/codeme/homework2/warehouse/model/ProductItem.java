@@ -2,13 +2,13 @@ package com.codeme.homework2.warehouse.model;
 
 public class ProductItem extends Product {
 	
-	public ProductItem(String name, double price, String measure) {
+	public ProductItem(String name, Double price, String measure) {
 		super(name, price, measure);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s -- %.2f per %s", super.name, super.price, super.measure);
+		return String.format("%s -- %.2f per 1%s", super.name, super.price, super.measure);
 	}
 
 	@Override
