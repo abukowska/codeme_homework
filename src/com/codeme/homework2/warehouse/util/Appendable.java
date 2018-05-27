@@ -18,8 +18,6 @@ public interface Appendable {
 	 */
 	public Appendable append(Object item);
 	
-	public Object[] getAppendableArray();
-	
 	public Appendable removeElement(Object item);
 
 }

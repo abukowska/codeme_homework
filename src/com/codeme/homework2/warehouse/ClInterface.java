@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Map;
 
 import com.codeme.homework2.warehouse.model.Bread;
 import com.codeme.homework2.warehouse.model.Potatoes;
@@ -41,31 +42,47 @@ public class ClInterface {
 	private void displayMenu() throws IOException {
 		println("\n--- Virtual Shop ---");
 		println("Choose option, 1 OR 2:");
-		println("(1) See products available.");
+		println("(1) See available products.");
 		println("(2) Under construction.");
 		println("");
 		println("//For exit: \"exit\"");
 	}
+	
+	private void displayAvailableProducts(Warehouse warehouse) {
+		try {
+			println("Products available:");
+			Map<ProductItem, Integer> warehouseItems = warehouse.getWarehouseItems();
+			int count = 0;
+			for(Map.Entry<ProductItem, Integer> entry : warehouseItems.entrySet()) {
+				println(String.valueOf(++count) + ") " + entry.getKey().toString() + "  ilosc: " + entry.getValue());
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 
 	public void start() {
 		Warehouse warehouse = new Warehouse();
-		Water water = new Water("water", 2.5, "1l");
+		Water waterN = new Water("woda Naleczowianka", 2.5, "1l");
+		Water waterZ = new Water("woda Zywiec", 2.4, "1l");
 		Bread bread = new Bread("bread", 3.30, "1 piece");
 		Potatoes potatoes = new Potatoes("potatoes", 4.5, "1kg");
-		warehouse.append(water);
-		warehouse.append(bread);
-		warehouse.append(potatoes);
+		warehouse.addToWarehouse(waterZ, 1);
+		warehouse.addToWarehouse(waterZ, 3);
+		warehouse.addToWarehouse(bread, 11);
+		warehouse.addToWarehouse(potatoes, 30);
+		warehouse.addToWarehouse(potatoes, 12);
+		warehouse.addToWarehouse(potatoes, -10);
+		warehouse.removeFromWarehouse(1, 2);
+		warehouse.removeFromWarehouse(1, 2);
+		warehouse.removeFromWarehouse(2, 3);
+		warehouse.removeFromWarehouse(3, -50);
 		try {
 			do {
 				displayMenu();
 				String option = read().toLowerCase().trim();
 				if (option.equals("1")) {
-					println("Products available:");
-					Object[] warehouseItems = warehouse.getAppendableArray();
-					for(Object item : warehouseItems) {
-						ProductItem productItem = (ProductItem) item;
-						println(productItem.toString());
-					}	
+					displayAvailableProducts(warehouse);
 				} else if (option.equals("2")) {
 					println("Under construction.");
 				} else if (option.equals("exit")) {

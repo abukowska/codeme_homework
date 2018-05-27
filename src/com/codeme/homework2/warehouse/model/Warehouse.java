@@ -1,29 +1,56 @@
 package com.codeme.homework2.warehouse.model;
 
-import com.codeme.homework2.warehouse.util.Appendable;
-import com.codeme.homework2.warehouse.util.AppendableArray;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class Warehouse implements Appendable {
+public class Warehouse{
 	
-	private Appendable app;
+	private Map<ProductItem, Integer> warehouse;
+	private ArrayList<ProductItem> test;
 
 	public Warehouse() {
-		app = new AppendableArray();
+		warehouse = new LinkedHashMap<>();
+		test = new ArrayList<ProductItem>();
 	}
 
-	@Override
-	public Appendable append(Object item) {
-		return app.append(item);
-	}
-
-	@Override
-	public Object[] getAppendableArray() {
-		return app.getAppendableArray();
-	}
-
-	@Override
-	public Appendable removeElement(Object item) {
-		return app.removeElement(item);
+	public boolean addToWarehouse(ProductItem productItem, Integer amount) {
+		if (amount >= 0) {
+			if(warehouse.size() > 0) {
+				for(ProductItem pI : warehouse.keySet()) {
+					if (pI.equals(productItem)) {
+						int itemAmount = warehouse.get(pI) + amount;
+						warehouse.replace(pI, itemAmount);
+						return true;
+					}
+				}
+				warehouse.put(productItem, amount);
+				test.add(productItem);
+				return true;
+			} else {
+				warehouse.put(productItem, amount);
+				test.add(productItem);
+				return true;
+			}
+		}
+		return false;			
 	}
 	
+	public Map<ProductItem, Integer> getWarehouseItems() {
+		return warehouse;
+	}
+	
+	public boolean removeFromWarehouse(Integer productNo, Integer amount) {
+		if(amount > 0) {
+			ProductItem searchedProduct = test.get(productNo - 1);
+			Integer storedProductAmount = warehouse.get(searchedProduct);
+			if (storedProductAmount - amount >= 0) {
+				warehouse.replace(searchedProduct, storedProductAmount - amount);
+				return true;
+			} else {
+				System.out.println("Amount must be higer than zero.");
+			}			
+		}
+		return false;			
+	}
 }
