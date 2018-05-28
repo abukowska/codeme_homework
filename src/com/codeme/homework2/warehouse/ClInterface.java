@@ -1,6 +1,5 @@
 package com.codeme.homework2.warehouse;
 
-import java.awt.Choice;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -14,14 +13,13 @@ import com.codeme.homework2.warehouse.model.ProductItem;
 import com.codeme.homework2.warehouse.model.Warehouse;
 import com.codeme.homework2.warehouse.model.Water;
 
-
 public class ClInterface {
 	private BufferedWriter writer;
 	private BufferedReader reader;
 
 	public ClInterface() {
-		writer = new BufferedWriter(new OutputStreamWriter(System.out)); 
-		reader = new BufferedReader(new InputStreamReader(System.in)); 
+		writer = new BufferedWriter(new OutputStreamWriter(System.out));
+		reader = new BufferedReader(new InputStreamReader(System.in));
 	}
 
 	private void print(String text) throws IOException {
@@ -51,27 +49,26 @@ public class ClInterface {
 		println("");
 		println("//For exit: \"exit\"");
 	}
-	
+
 	private void displayAvailableProducts(Warehouse warehouse) {
 		try {
 			println("Products available:");
 			Map<ProductItem, Integer> warehouseItems = warehouse.getWarehouseItems();
 			int count = 0;
-			for(Map.Entry<ProductItem, Integer> entry : warehouseItems.entrySet()) {
+			for (Map.Entry<ProductItem, Integer> entry : warehouseItems.entrySet()) {
 				println(String.valueOf(++count) + ") " + entry.getKey().toString() + "  amount: " + entry.getValue());
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
-	
+
 	private void supplyWarehouse(Warehouse warehouse) {
 		warehouse.addToWarehouse(new Water("woda Naleczowianka", 2.5, "l"), 1);
 		warehouse.addToWarehouse(new Water("woda Zywiec", 2.4, "l"), 3);
 		warehouse.addToWarehouse(new Bread("bread", 3.30, "piece"), 11);
 		warehouse.addToWarehouse(new Potatoes("potatoes", 4.5, "kg"), 30);
 	}
-	
 
 	public void start() {
 		Warehouse warehouse = new Warehouse();
@@ -80,17 +77,17 @@ public class ClInterface {
 			do {
 				displayMenu();
 				String mainMenuChoice = read().toLowerCase().trim();
-				//1
+				// 1
 				if (mainMenuChoice.trim().equals("1")) {
 					displayAvailableProducts(warehouse);
-				//2
+					
+				// 2
 				} else if (mainMenuChoice.trim().equals("2")) {
 					Boolean exit = false;
 					do {
 						String productsName;
 						Double prodPrice = 0.0;
 						String productsMeasure;
-						
 						do {
 							println("Add a new product's name: ");
 							productsName = read().trim();
@@ -104,12 +101,12 @@ public class ClInterface {
 								break;
 							}
 						} while (true);
-						
+
 						if (exit == true) {
 							println("Product not created. Exiting.");
 							break;
 						}
-						
+
 						do {
 							println("Add product's price: ");
 							String productsPrice = read().trim();
@@ -128,12 +125,12 @@ public class ClInterface {
 								}
 							}
 						} while (true);
-						
+
 						if (exit == true) {
 							println("Product not created. Exiting.");
 							break;
 						}
-						
+
 						do {
 							println("Add product's measure (l/kg/piece): ");
 							productsMeasure = read().trim();
@@ -150,20 +147,23 @@ public class ClInterface {
 								println("Please choose measure: l OR kg OR piece.");
 							}
 						} while (true);
-						
+
 						if (exit == true) {
 							println("Product not created. Exiting.");
 							break;
 						}
+
 						ProductItem newItem = new ProductItem(productsName, prodPrice, productsMeasure);
 						warehouse.addToWarehouse(newItem);
-						System.out.printf("Product >%s< created and added to warehouse. Now you can add the amount of it to be stored.", newItem.toString());
-						break;					
+						System.out.printf(
+								"Product >%s< created and added to warehouse. Now you can add the amount of it to be stored.",
+								newItem.toString());
+						break;
 					} while (true);
-				
-				//3
+
+				// 3
 				} else if (mainMenuChoice.trim().equals("3")) {
-					displayAvailableProducts(warehouse);				
+					displayAvailableProducts(warehouse);
 					Integer prodNoToBeIncreased = 0;
 					Integer newAmount = 0;
 					Boolean exit = false;
@@ -171,7 +171,7 @@ public class ClInterface {
 						do {
 							println("Choose which of the products amount you'd like to increase:");
 							String productNoToBeIncreased = read().trim();
-							int noOfWarehoseItems = warehouse.getWarehouseItems().size();				
+							int noOfWarehoseItems = warehouse.getWarehouseItems().size();
 							if (productNoToBeIncreased.equals("")) {
 								println("Please provide a product no to be increased.");
 							} else if (productNoToBeIncreased.trim().toLowerCase().equals("exit")) {
@@ -188,17 +188,17 @@ public class ClInterface {
 								} catch (NumberFormatException nfe) {
 									println("Please add amount in a numerical format.");
 								}
-							}	
+							}
 						} while (true);
-						
+
 						if (exit == true) {
 							println("Product not created. Exiting.");
 							break;
 						}
-						
+
 						do {
 							println("Add amount: ");
-							String amountToBeIncreased = read().trim();		
+							String amountToBeIncreased = read().trim();
 							if (amountToBeIncreased.equals("")) {
 								println("Please provide one. Product no to be increased.");
 							} else if (amountToBeIncreased.trim().toLowerCase().equals("exit")) {
@@ -211,14 +211,14 @@ public class ClInterface {
 								} catch (NumberFormatException nfe) {
 									println("Please add amount in a numerical format.");
 								}
-							}				
+							}
 						} while (true);
-						
+
 						if (exit == true) {
 							println("Product not created. Exiting.");
 							break;
 						}
-						
+
 						try {
 							warehouse.addToWarehouse(prodNoToBeIncreased, newAmount);
 						} catch (IllegalArgumentException iae) {
@@ -227,12 +227,12 @@ public class ClInterface {
 						}
 						println("Product increased!");
 						displayAvailableProducts(warehouse);
-						break;				
-				} while (true);
-				
-				//4
+						break;
+					} while (true);
+
+				// 4
 				} else if (mainMenuChoice.trim().equals("4")) {
-					displayAvailableProducts(warehouse);				
+					displayAvailableProducts(warehouse);
 					Integer prodNoToBeDecreased = 0;
 					Integer amountDecreased = 0;
 					Boolean exit = false;
@@ -241,7 +241,7 @@ public class ClInterface {
 							println("Choose which of the products amount you'd like to decrease:");
 							String productNoToBeDecreased = read().trim();
 							int noOfWarehoseItems = warehouse.getWarehouseItems().size();
-							
+
 							if (productNoToBeDecreased.equals("")) {
 								println("Please provide a product no to be increased.");
 							} else if (productNoToBeDecreased.trim().toLowerCase().equals("exit")) {
@@ -260,15 +260,15 @@ public class ClInterface {
 								}
 							}
 						} while (true);
-						
+
 						if (exit == true) {
 							println("Product not created. Exiting.");
 							break;
 						}
-						
+
 						do {
 							println("Add amount: ");
-							String amountToBeDecreased = read().trim();		
+							String amountToBeDecreased = read().trim();
 							if (amountToBeDecreased.equals("")) {
 								println("Please provide one. Product no to be decreased.");
 							} else if (amountToBeDecreased.trim().toLowerCase().equals("exit")) {
@@ -277,17 +277,18 @@ public class ClInterface {
 							} else {
 								try {
 									amountDecreased = Integer.valueOf(amountToBeDecreased);
-									if ( warehouse.getNoOfProductItemsBasedOnProdNo(prodNoToBeDecreased)- amountDecreased < 0 || amountDecreased <= 0) {
+									if (warehouse.getNoOfProductItemsBasedOnProdNo(prodNoToBeDecreased)
+											- amountDecreased < 0 || amountDecreased <= 0) {
 										println("There are not enough products to proceed wih the operation.");
 										continue;
-									}									
+									}
 									break;
 								} catch (NumberFormatException nfe) {
 									println("Please add amount in a numerical format.");
 								}
-							}				
+							}
 						} while (true);
-						
+
 						if (exit == true) {
 							println("Product not created. Exiting.");
 							break;
@@ -295,10 +296,14 @@ public class ClInterface {
 						warehouse.removeFromWarehouse(prodNoToBeDecreased, amountDecreased);
 						println("Product decreased!");
 						displayAvailableProducts(warehouse);
-						break;					
-				} while (true);				
+						break;
+					} while (true);
+
+				// exit
 				} else if (mainMenuChoice.toLowerCase().equals("exit")) {
 					break;
+					
+				//other
 				} else {
 					println("Please choose option 1, 2, 3, 4 OR exit.");
 				}
