@@ -7,11 +7,11 @@ import java.util.Map;
 public class Warehouse{
 	
 	private Map<ProductItem, Integer> warehouse;
-	private ArrayList<ProductItem> test;
+	private ArrayList<ProductItem> availableProductsList;
 
 	public Warehouse() {
 		warehouse = new LinkedHashMap<>();
-		test = new ArrayList<ProductItem>();
+		availableProductsList = new ArrayList<ProductItem>();
 	}
 
 	public boolean addToWarehouse(ProductItem productItem, Integer amount) {
@@ -25,11 +25,11 @@ public class Warehouse{
 					}
 				}
 				warehouse.put(productItem, amount);
-				test.add(productItem);
+				availableProductsList.add(productItem);
 				return true;
 			} else {
 				warehouse.put(productItem, amount);
-				test.add(productItem);
+				availableProductsList.add(productItem);
 				return true;
 			}
 		}
@@ -40,7 +40,7 @@ public class Warehouse{
 		if (amount > 0) {
 			if(warehouse.size() > 0) {
 				for(ProductItem pItem : warehouse.keySet()) {
-					ProductItem searchedProduct = test.get(itemFromWarehouseIndex - 1);
+					ProductItem searchedProduct = availableProductsList.get(itemFromWarehouseIndex - 1);
 					Integer storedProductAmount = warehouse.get(searchedProduct);
 					warehouse.replace(searchedProduct, storedProductAmount + amount);
 					return true;		
@@ -55,12 +55,12 @@ public class Warehouse{
 	
 	public boolean addToWarehouse(ProductItem productItem) {
 		warehouse.put(productItem, 0);
-		test.add(productItem);
+		availableProductsList.add(productItem);
 		return true;
 	}
 	
 	public Integer getNoOfProductItemsBasedOnProdNo(Integer prodNo) {
-		ProductItem searchedProduct = test.get(prodNo - 1);
+		ProductItem searchedProduct = availableProductsList.get(prodNo - 1);
 		Integer storedProductAmount = warehouse.get(searchedProduct);
 		return storedProductAmount;
 	}
@@ -72,7 +72,7 @@ public class Warehouse{
 	
 	public boolean removeFromWarehouse(Integer productNo, Integer amount) {
 		if(amount > 0) {
-			ProductItem searchedProduct = test.get(productNo - 1);
+			ProductItem searchedProduct = availableProductsList.get(productNo - 1);
 			Integer storedProductAmount = warehouse.get(searchedProduct);
 			if (storedProductAmount - amount >= 0) {
 				warehouse.replace(searchedProduct, storedProductAmount - amount);

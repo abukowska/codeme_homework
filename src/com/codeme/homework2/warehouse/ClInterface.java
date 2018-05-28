@@ -45,9 +45,9 @@ public class ClInterface {
 		println("\n--- Virtual Shop ---");
 		println("Choose option, 1, 2, 3 OR 4:");
 		println("(1) See available products.");
-		println("(2) Create a new product and add it to the warehouse.");
-		println("(3) Add more already existing products to the warehouse.");
-		println("(4) Remove already existing products from the warehouse.");
+		println("(2) Create a new warehouse product.");
+		println("(3) Supply the warehouse (existing products).");
+		println("(4) Remove products from the warehouse.");
 		println("");
 		println("//For exit: \"exit\"");
 	}
@@ -58,26 +58,33 @@ public class ClInterface {
 			Map<ProductItem, Integer> warehouseItems = warehouse.getWarehouseItems();
 			int count = 0;
 			for(Map.Entry<ProductItem, Integer> entry : warehouseItems.entrySet()) {
-				println(String.valueOf(++count) + ") " + entry.getKey().toString() + "  ilosc: " + entry.getValue());
+				println(String.valueOf(++count) + ") " + entry.getKey().toString() + "  amount: " + entry.getValue());
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
+	
+	private void supplyWarehouse(Warehouse warehouse) {
+		warehouse.addToWarehouse(new Water("woda Naleczowianka", 2.5, "l"), 1);
+		warehouse.addToWarehouse(new Water("woda Zywiec", 2.4, "l"), 3);
+		warehouse.addToWarehouse(new Bread("bread", 3.30, "piece"), 11);
+		warehouse.addToWarehouse(new Potatoes("potatoes", 4.5, "kg"), 30);
+	}
+	
 
 	public void start() {
 		Warehouse warehouse = new Warehouse();
-		warehouse.addToWarehouse(new ProductItem("woda Naleczowianka", 2.5, "l"), 1);
-		warehouse.addToWarehouse(new ProductItem("woda Zywiec", 2.4, "l"), 3);
-		warehouse.addToWarehouse(new ProductItem("bread", 3.30, "piece"), 11);
-		warehouse.addToWarehouse(new ProductItem("potatoes", 4.5, "kg"), 30);
+		supplyWarehouse(warehouse);
 		try {
 			do {
 				displayMenu();
-				String option = read().toLowerCase().trim();
-				if (option.trim().equals("1")) {
+				String mainMenuChoice = read().toLowerCase().trim();
+				//1
+				if (mainMenuChoice.trim().equals("1")) {
 					displayAvailableProducts(warehouse);
-				} else if (option.trim().equals("2")) {
+				//2
+				} else if (mainMenuChoice.trim().equals("2")) {
 					Boolean exit = false;
 					do {
 						String productsName;
@@ -154,7 +161,8 @@ public class ClInterface {
 						break;					
 					} while (true);
 				
-				} else if (option.trim().equals("3")) {
+				//3
+				} else if (mainMenuChoice.trim().equals("3")) {
 					displayAvailableProducts(warehouse);				
 					Integer prodNoToBeIncreased = 0;
 					Integer newAmount = 0;
@@ -163,8 +171,7 @@ public class ClInterface {
 						do {
 							println("Choose which of the products amount you'd like to increase:");
 							String productNoToBeIncreased = read().trim();
-							int noOfWarehoseItems = warehouse.getWarehouseItems().size();
-							
+							int noOfWarehoseItems = warehouse.getWarehouseItems().size();				
 							if (productNoToBeIncreased.equals("")) {
 								println("Please provide a product no to be increased.");
 							} else if (productNoToBeIncreased.trim().toLowerCase().equals("exit")) {
@@ -215,7 +222,6 @@ public class ClInterface {
 						try {
 							warehouse.addToWarehouse(prodNoToBeIncreased, newAmount);
 						} catch (IllegalArgumentException iae) {
-							System.out.println("aaa");
 							iae.printStackTrace();
 							break;
 						}
@@ -224,7 +230,8 @@ public class ClInterface {
 						break;				
 				} while (true);
 				
-				} else if (option.trim().equals("4")) {
+				//4
+				} else if (mainMenuChoice.trim().equals("4")) {
 					displayAvailableProducts(warehouse);				
 					Integer prodNoToBeDecreased = 0;
 					Integer amountDecreased = 0;
@@ -290,7 +297,7 @@ public class ClInterface {
 						displayAvailableProducts(warehouse);
 						break;					
 				} while (true);				
-				} else if (option.toLowerCase().equals("exit")) {
+				} else if (mainMenuChoice.toLowerCase().equals("exit")) {
 					break;
 				} else {
 					println("Please choose option 1, 2, 3, 4 OR exit.");
@@ -301,7 +308,4 @@ public class ClInterface {
 			e.printStackTrace();
 		}
 	}
-	
-
-
 }
