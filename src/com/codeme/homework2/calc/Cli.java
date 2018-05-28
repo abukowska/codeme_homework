@@ -2,7 +2,6 @@ package com.codeme.homework2.calc;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -10,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.codeme.homework2.calc.model.Calculator;
-import com.codeme.homework3.enigma.Enigma;
 
 public class Cli {
 	private BufferedWriter writer;
@@ -37,14 +35,9 @@ public class Cli {
 		return reader.readLine().trim();
 	}
 
-	private Integer readInt() throws IOException {
-		return Integer.valueOf(reader.readLine());
-	}
-
 	private void displayMenu() throws IOException {
 		println("\n--- Calculator ---");
-		println("Write an equation, e.g. 2+4 OR 11-10");
-		println("");
+		println("Write an equation, e.g. 2+4 OR 11+-1");
 		println("//For exit: \"exit\"");
 	}
 
@@ -57,20 +50,35 @@ public class Cli {
 				if (usersEquation.toLowerCase().equals("exit")) {
 					break;
 				} else {
-					String pattern = "^((\\d+)(\\.\\d++)?)(\\+|\\-)((\\d+)(\\.\\d++)?)$";
+					String pattern = "^((\\-)?(\\d+)(\\.\\d++)?)(\\+|\\-|\\/|\\*)((\\-)?(\\d+)(\\.\\d++)?)$";
 					Pattern r = Pattern.compile(pattern);
 			        Matcher m = r.matcher(usersEquation);
 
 			        if (m.find()) {
-			            System.out.println("Found value: " + m.group(1));
-			            System.out.println("Found value: " + m.group(4));
-			            System.out.println("Found value: " + m.group(5));
+			        	switch(m.group(5)) {
+			        	case "+": 
+			        		System.out.println(calc.add(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+			        		break;
+			        	case "-" :
+			        		System.out.println(calc.subtract(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+			        		break;
+			        	case "*" :
+			        		System.out.println(calc.multiple(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+			        		break;
+			        	case "/" :
+			        		try {
+			        			System.out.println(calc.divide(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+			        		} catch (IllegalArgumentException iae) {
+			        			println("Can't divide by zero.");
+			        		}
+			        		break;
+			        	default:
+			        		println("");
+			        	}			        	
 			        } else {
-			            System.out.println("NO MATCH");
+			            System.out.println("Invalid input. Please try again.");
 			            continue;
-			        }
-			        System.out.println(calc.add(Double.valueOf(m.group(1)), Double.valueOf(m.group(5))));
-					
+			        }	
 				}
 			} while (true);
 			println("Thanks for choosing our calculator! ;).");
