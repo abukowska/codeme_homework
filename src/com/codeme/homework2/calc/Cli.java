@@ -39,6 +39,7 @@ public class Cli {
 		println("\n--- Calculator ---");
 		println("Write an equation, e.g. 2+4 OR 11+-1");
 		println("//For exit: \"exit\"");
+		println(">> ");
 	}
 
 	public void start() {
@@ -52,33 +53,33 @@ public class Cli {
 				} else {
 					String pattern = "^((\\-)?(\\d+)(\\.\\d++)?)(\\+|\\-|\\/|\\*)((\\-)?(\\d+)(\\.\\d++)?)$";
 					Pattern r = Pattern.compile(pattern);
-			        Matcher m = r.matcher(usersEquation);
+					Matcher m = r.matcher(usersEquation);
 
-			        if (m.find()) {
-			        	switch(m.group(5)) {
-			        	case "+": 
-			        		System.out.println(calc.add(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-			        		break;
-			        	case "-" :
-			        		System.out.println(calc.subtract(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-			        		break;
-			        	case "*" :
-			        		System.out.println(calc.multiple(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-			        		break;
-			        	case "/" :
-			        		try {
-			        			System.out.println(calc.divide(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-			        		} catch (IllegalArgumentException iae) {
-			        			println("Can't divide by zero.");
-			        		}
-			        		break;
-			        	default:
-			        		println("");
-			        	}			        	
-			        } else {
-			            System.out.println("Invalid input. Please try again.");
-			            continue;
-			        }	
+					if (m.find()) {
+						switch (m.group(5)) {
+						case "+":
+							System.out.println(calc.add(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+							break;
+						case "-":
+							System.out.println(calc.subtract(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+							break;
+						case "*":
+							System.out.println(calc.multiple(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+							break;
+						case "/":
+							try {
+								System.out.println(calc.divide(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
+							} catch (IllegalArgumentException iae) {
+								println("Can't divide by zero.");
+							}
+							break;
+						default:
+							println("");
+						}
+					} else {
+						System.out.println("Invalid input. Please try again.");
+						continue;
+					}
 				}
 			} while (true);
 			println("Thanks for choosing our calculator! ;).");
@@ -86,5 +87,5 @@ public class Cli {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
