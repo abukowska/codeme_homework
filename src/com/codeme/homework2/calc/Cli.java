@@ -51,34 +51,12 @@ public class Cli {
 				if (usersEquation.toLowerCase().equals("exit")) {
 					break;
 				} else {
-					String pattern = "^((\\-)?(\\d+)(\\.\\d++)?)(\\+|\\-|\\/|\\*)((\\-)?(\\d+)(\\.\\d++)?)$";
-					Pattern r = Pattern.compile(pattern);
-					Matcher m = r.matcher(usersEquation);
-
-					if (m.find()) {
-						switch (m.group(5)) {
-						case "+":
-							System.out.println(calc.add(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-							break;
-						case "-":
-							System.out.println(calc.subtract(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-							break;
-						case "*":
-							System.out.println(calc.multiple(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-							break;
-						case "/":
-							try {
-								System.out.println(calc.divide(Double.valueOf(m.group(1)), Double.valueOf(m.group(6))));
-							} catch (IllegalArgumentException iae) {
-								println("Can't divide by zero.");
-							}
-							break;
-						default:
-							println("");
-						}
-					} else {
+					try {
+						calc.calculate(usersEquation);
+					} catch (IllegalArgumentException iae) {
 						System.out.println("Invalid input. Please try again.");
-						continue;
+					} catch (ArithmeticException ae) {
+						System.out.println("Can't divide by zero.");
 					}
 				}
 			} while (true);
