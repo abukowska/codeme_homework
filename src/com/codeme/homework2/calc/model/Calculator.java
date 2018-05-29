@@ -36,19 +36,19 @@ public class Calculator {
 		}
 	}
 	
-	public Double add(Double a, Double b) {
+	private Double add(Double a, Double b) {
 		return a+b;
 	}
 	
-	public Double subtract(Double a, Double b) {
+	private Double subtract(Double a, Double b) {
 		return a-b;
 	}
 	
-	public Double multiple(Double a, Double b) {
+	private Double multiple(Double a, Double b) {
 		return a*b;
 	}
 	
-	public Double divide(Double a, Double b) {
+	private Double divide(Double a, Double b) {
 		if (b == 0) {
 			throw new ArithmeticException("Can't divide by zero.");
 		}
