@@ -15,7 +15,7 @@ public class Calculator {
 		}
 	}
 	
-	public void calculate(String usersEquation) {
+	public void calculate(String usersEquation) throws ArithmeticException, IllegalArgumentException {
 		String pattern = "^((\\-)?(\\d+)(\\.\\d++)?)(\\+|\\-|\\/|\\*)((\\-)?(\\d+)(\\.\\d++)?)$";
 		Pattern r = Pattern.compile(pattern);
 		Matcher m = r.matcher(usersEquation);
@@ -65,7 +65,7 @@ public class Calculator {
 		return a*b;
 	}
 	
-	private Double divide(Double a, Double b) {
+	private Double divide(Double a, Double b) throws ArithmeticException {
 		if (b == 0) {
 			throw new ArithmeticException("Can't divide by zero.");
 		}
