@@ -31,3 +31,4 @@ bin/
 
 #config files
 resources/*.properties
+/target/
