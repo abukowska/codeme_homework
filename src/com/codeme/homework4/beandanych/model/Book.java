@@ -1,5 +1,8 @@
 package com.codeme.homework4.beandanych.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Book {
@@ -8,6 +11,7 @@ public class Book {
 	private String title = null;
 	private String author = null;
 	private Date publishYear = new Date();
+	private DateFormat df = new SimpleDateFormat("yyyy");
 	private Integer amount = null;
 	
 	public Book() {
@@ -25,8 +29,8 @@ public class Book {
 		return author;
 	}
 
-	public Date getPublishYear() {
-		return publishYear;
+	public String getPublishYear() {
+		return df.format(publishYear);
 	}
 
 	public Integer getAmount() {
@@ -45,11 +49,21 @@ public class Book {
 		this.author = author;
 	}
 
-	public void setPublishYear(Date publishYear) {
-		this.publishYear = publishYear;
+	public void setPublishYear(String publishYear) {
+		try {
+			this.publishYear = df.parse(publishYear);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%d) %s by %s", id, title, author);
+		
 	}
 }
